@@ -1,0 +1,47 @@
+/*
+// Definition for a Node.
+public class Node {
+    public int val;
+    public Node prev;
+    public Node next;
+    public Node child;
+}
+*/
+
+public class Solution {
+    public Node Flatten(Node head)
+    {
+        if (head == null) return head;
+
+        Stack<Node> stack = new Stack<Node>();
+        Node currentNode = head;
+
+        while(currentNode != null)
+        { 
+            if(currentNode.child != null)
+            {
+                if(currentNode.next != null) 
+                    stack.Push(currentNode.next);
+
+                currentNode.next = currentNode.child;
+
+                if (currentNode.next != null) 
+                    currentNode.next.prev = currentNode;
+                    
+                currentNode.child = null;
+            }
+            else if (currentNode.next == null && stack.Count != 0) 
+            {
+                currentNode.next = stack.Pop();
+
+                if (currentNode.next != null) 
+                    currentNode.next.prev = currentNode;
+                
+            }
+            currentNode = currentNode.next;
+        }
+
+        return head;
+    }
+    
+}
