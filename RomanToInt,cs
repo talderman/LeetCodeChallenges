@@ -1,0 +1,19 @@
+namespace LeetCodeWorkSpace
+{
+    public class JulyLeetCodeChallenges
+    {
+        public uint reverseBits(uint n)
+        {
+            uint returnVal = 0;
+        
+            for(int i = 0; i < 32; i++)
+            {
+                uint workingSpace = (n&1);
+                returnVal = (returnVal<<1 ) + workingSpace;
+                n>>= 1;
+            }
+        
+           return returnVal;
+        }
+    }
+}
