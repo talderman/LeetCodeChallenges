@@ -1,0 +1,19 @@
+public class Solution {
+    public string AddBinary(string a, string b)
+    {
+        string returnVal = string.Empty;
+        int sum = 0;
+        int left = a.Length - 1;
+        int right = b.Length - 1;
+        
+        while (left >= 0 || right >= 0 || sum == 1)
+        {
+            sum += ((left >= 0) ? a[left] - '0' : 0);
+            sum += ((right >= 0) ? b[right] - '0' : 0);
+            returnVal = (char)(sum % 2 + '0') + returnVal;
+            sum /= 2;
+            left--; right--;
+        }
+            return returnVal;
+    }
+}
