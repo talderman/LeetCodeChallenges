@@ -1,0 +1,29 @@
+public class Solution 
+{
+    public IList<IList<int>> AllPathsSourceTarget(int[][] graph)
+    {
+        List<IList<int>> result = new List<IList<int>>();
+
+        if (graph == null || graph.Length == 0) return result;
+
+        FindPaths(graph, 0, new List<int>(), result );
+        return result;
+    }
+
+    private void FindPaths(int[][] graph, int index, List<int> path, IList<IList<int>> result )
+    {
+        if (graph[index].Length == 0)
+        {
+            path.Add(index);
+            result.Add(path);
+            return;
+        }
+
+        path.Add(index);
+
+        for (int i = 0; i < graph[index].Length; i++)
+        {
+            FindPaths(graph, graph[index][i], new List<int>(path), result);
+        }
+    }
+}
