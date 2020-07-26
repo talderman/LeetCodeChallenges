@@ -1,0 +1,19 @@
+public class Solution 
+{
+    public int AddDigits(int num)
+    {
+        int sum = 0;
+
+        char[] splitNums = num.ToString().ToCharArray();
+
+        for (int i = 0; i < splitNums.Length; i++)
+        {
+            sum += Convert.ToInt32(new string(splitNums[i], 1));
+        }
+
+        if (10 <= sum)
+            return AddDigits(sum);
+        else
+            return sum;
+    }
+}
