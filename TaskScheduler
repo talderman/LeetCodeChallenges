@@ -1,0 +1,24 @@
+public class Solution
+{
+    public int LeastInterval(char[] tasks, int n)
+    {
+        int tasksLength = tasks.Length;
+        int[] map = new int[26];
+         
+        foreach (var c in tasks)
+        {
+            map[c - 'A']++;
+        }
+        
+        Array.Sort(map);
+        
+        int max = map[25] - 1;
+        int idleSlots = max * n; 
+        
+        for (int i = 24; i >= 0; i--)
+        {
+            idleSlots -= Math.Min(map[i], max);
+        }
+        return idleSlots > 0 ? tasksLength + idleSlots : tasksLength;
+    } 
+}
