@@ -1,0 +1,22 @@
+public class Solution 
+{
+    public int MaxProfit(int[] prices)
+    {
+        if (prices == null || prices.Length == 0) return 0;
+
+        int buymax = -prices[0];
+        int sellmax = 0;
+        int sellpre = 0;
+        
+        for (int i = 1; i < prices.Length; i++)
+        {
+            int temp = sellpre;
+            sellpre = sellmax;
+
+            sellmax = Math.Max(sellmax, buymax + prices[i]);
+            buymax = Math.Max(buymax, temp - prices[i]);
+        }
+
+        return sellmax;
+    }
+}
