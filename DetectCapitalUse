@@ -1,0 +1,49 @@
+public class Solution 
+{
+    // Faster - Runtime: 76 ms
+    public bool DetectCapitalUse(string word)
+    {
+        int n = word.Length;
+        if (n == 1) return true;
+
+        if (Char.IsUpper(word.ToCharArray()[0]) && Char.IsUpper(word.ToCharArray()[1]))
+        {
+            for (int i = 2; i < n; i++)
+            {
+                if (Char.IsLower(word.ToCharArray()[i]))
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 1; i < n; i++)
+            {
+                if (Char.IsUpper(word.ToCharArray()[i]))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    // Slower - Runtime: 172 ms
+    public bool DetectCapitalUse2(string word)
+        {
+
+            if (word.ToLower() == word)
+                return true;
+
+            if (word.ToUpper() == word)
+                return true;
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+
+            if (ti.ToTitleCase(word) == word)
+                return true;
+
+            return false;
+        }
+}
