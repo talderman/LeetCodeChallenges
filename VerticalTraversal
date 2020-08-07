@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution 
+{
+    public IList<IList<int>> VerticalTraversal(TreeNode root)
+    {
+        SortedList<int, List<(int, int)>> sortedList = new SortedList<int, List<(int, int)>>();
+        List<IList<int>> result = new List<IList<int>>();
+
+        if (root == null) return result;
+            
+        Dfs(sortedList, root, 0, 0);
+            
+        foreach (KeyValuePair<int, List<(int, int)>> list in sortedList)
+        {
+            result.Add(list.Value.OrderBy(x => x.Item2).ThenBy(x => x.Item1).Select(x => x.Item1).ToList());
+        }
+            
+        return result;
+    }
+
+    private void Dfs(SortedList<int, List<(int, int)>> sortedList, TreeNode node, int order, int level)
+    {
+        if (node == null) return;
+
+        if (!sortedList.ContainsKey(order))
+            sortedList.Add(order, new List<(int, int)> { (node.val, level) });
+        else sortedList[order].Add((node.val, level));
+
+        Dfs(sortedList, node.left, order - 1, level + 1);
+        Dfs(sortedList, node.right, order + 1, level + 1);
+    }
+}
